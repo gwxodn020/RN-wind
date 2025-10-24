@@ -115,3 +115,14 @@ npm install @react-navigation/bottom-tabs
 # dependencies
 npm install react-native-screens react-native-safe-area-context
 ```
+
+ npm i react-native-maps
+ npm install @react-native-community/geolocation --save
+
+
+cd android                                                                              
+./gradlew clean
+cd ..
+npx react-native run-android
+
+npx react-native start --reset-cache  

@@ -73,23 +73,25 @@ export default function LoginPage({ navigation }) {
             외출증 애플리케이션 사용을 위해 로그인을 해주세요.
           </Text>
           <TextInput
-            className="px-1 pb-2 mt-10 mb-2 text-lg border-b border-gray-400"
+            className="px-1 pb-2 mt-12 mb-2 text-lg border-b border-gray-400"
             placeholder="학번"
             placeholderTextColor="#343434"
             value={studentId}
             onChangeText={setStudentId}
+            style={{ height:80}}
           />
           {errors.studentId && (
             <Text className="text-sm text-red-500">{errors.studentId}</Text>
           )}
 
           <TextInput
-            className="px-1 pb-2 mt-6 text-lg text-black border-b border-gray-400"
+            className="px-1 pb-2 mt-2 text-lg text-black border-b border-gray-400"
             placeholder="비밀번호"
             placeholderTextColor="#343434"
             secureTextEntry
             value={password}
             onChangeText={setPassword}
+            style={{ height:80}}
           />
           {errors.password && (
             <Text className="mt-1 text-sm text-red-500">{errors.password}</Text>
@@ -101,16 +103,16 @@ export default function LoginPage({ navigation }) {
             </Text>
           )}
         </View>
-        <View className="items-center w-full mb-12">
+        <View className="items-center w-full mb-14">
           <TouchableOpacity
-            className="items-center justify-center w-4/5 py-4 rounded-full bg-[#5CC7AA]"
+            className="items-center justify-center w-11/12 py-4 rounded-full bg-[#5CC7AA] "
             onPress={handleLogin}
           >
-            <Text className="text-xl font-semibold text-white">로그인하기</Text>
+            <Text className="text-lg font-medium text-white">로그인하기</Text>
           </TouchableOpacity>
           <View className="flex-row items-center justify-center mt-6 ml-7">
             <TouchableOpacity onPress={handleHelp}>
-              <Text className="text-lg font-medium text-[#343434]">
+              <Text className="text-base font-normal text-[#343434]">
                 회원가입
               </Text>
             </TouchableOpacity>
@@ -118,7 +120,7 @@ export default function LoginPage({ navigation }) {
             <View className="w-px h-5 mx-8 bg-gray-300" />
 
             <TouchableOpacity onPress={handleHelp}>
-              <Text className="text-lg font-medium text-[#343434]">
+              <Text className="text-base font-normal text-[#343434]">
                 비밀번호 찾기
               </Text>
             </TouchableOpacity>
