@@ -120,9 +120,15 @@ npm install react-native-screens react-native-safe-area-context
  npm install @react-native-community/geolocation --save
 
 
-cd android                                                                              
+cd android                                                                         
 ./gradlew clean
 cd ..
 npx react-native run-android
 
 npx react-native start --reset-cache  
+
+// 유저는 4명 관리자 1명
+
+//유저는 자신이 이동한 경로를 자신의 화면에서 볼수있음 (단 다른사람의 위치는 볼수 없음)
+
+//관리자는 유저들의 위치경로를 모두 확인 할수 있음

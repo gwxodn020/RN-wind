@@ -9,20 +9,22 @@ import {
 } from 'react-native';
 import Header from '../../components/Home/Header/item';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Calendar from '../../../assets/calender.svg';
 import X from '../../../assets/X.svg';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import { TouchableWithoutFeedback } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 export default function HomePage() {
   const navigation = useNavigation();
   const [region, setRegion] = useState(null);
   const [myLocation, setMyLocation] = useState(null);
+  const [loading, setLoading] = useState(true);
   const watchIdRef = useRef(null);
   const isFocused = useIsFocused();
+
   useEffect(() => {
     async function requestPermissionAndTrack() {
       const granted = await requestPermission();
@@ -38,9 +40,12 @@ export default function HomePage() {
             longitudeDelta: 0.01,
           });
           setMyLocation({ latitude, longitude });
-          console.log('현재 위치:', latitude, longitude);
+          setLoading(false);
         },
-        err => console.log('현재 위치 실패:', err),
+        err => {
+          console.log('현재 위치 실패:', err);
+          setLoading(false);
+        },
         { enableHighAccuracy: false, timeout: 30000, maximumAge: 0 },
       );
 
@@ -90,12 +95,52 @@ export default function HomePage() {
     }
     return true;
   }
-
+  if (loading) {
+    return (
+      <SafeAreaView className="flex-1 bg-[#F5F5F5]">
+        <ScrollView>
+          <Header />
+          <SkeletonPlaceholder
+            borderRadius={16}
+            backgroundColor="#E0E0E0"
+            highlightColor="#F5F5F5"
+          >
+            <SkeletonPlaceholder.Item margin={20}>
+              <SkeletonPlaceholder.Item
+                height={180}
+                borderRadius={16}
+                marginBottom={20}
+              />
+              <SkeletonPlaceholder.Item
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                <SkeletonPlaceholder.Item
+                  width="48%"
+                  height={140}
+                  borderRadius={16}
+                />
+                <SkeletonPlaceholder.Item
+                  width="48%"
+                  height={140}
+                  borderRadius={16}
+                />
+              </SkeletonPlaceholder.Item>
+              <SkeletonPlaceholder.Item
+                marginTop={20}
+                height={200}
+                borderRadius={16}
+              />
+            </SkeletonPlaceholder.Item>
+          </SkeletonPlaceholder>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
   return (
     <SafeAreaView className="flex-1 bg-[#F5F5F5]">
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header />
-
         <View className="flex-col p-5 mx-5 mt-3 bg-white shadow-sm h-60 rounded-2xl">
           <Text className="mb-6 text-2xl font-extrabold text-black">
             내 외출증
